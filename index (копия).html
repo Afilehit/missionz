@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mission Z</title>
+    <style>
+        body {
+		margin: 0;
+        }
+	
+    </style>
+</head>
+<body>
+	<script type="text/javascript" src="phaser.min.js"></script>
+	<script type="text/javascript">
+    var Level1 = {
+	var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {preload: preload , create: create, update: update})
+	var pl
+    var playbtn
+	var weapon
+	var zombie
+	var zombies
+	var rightTrue
+	var leftTrue
+    var buttonL
+    var buttonR
+    var fire
+    var menu1
+    var gameover
+    var scorend
+    var resbtn
+    var scoreText
+	var righty = true
+	var lefty
+	var livebull = false
+	var money = 0
+	var moneyText
+	var life= 0
+	var lifeText
+	var ammo = 20
+    var ammo2 = 20
+	var ammoText
+    var tef = 15
+    var tef2 = 15
+    var timer
+    var timer2
+    var tsz = false
+    var tsz2 = false
+    var defch = false
+    var defch2 = false
+    var traplife = 58
+    var traplive = false
+    var biglife = 3
+    var lastTest = 0
+    var test = 1
+    var io = 1
+    var score = 0
+    var SpeedEnable = false
+    var trap
+    var pep
+    var pep2
+    var blockcam = false
+    var stoped = false
+    var destrap
+    var onyx = 0
+    var trap1
+    var trap2
+    var trap3
+    var trap4
+    var traplife = 4
+    var traplife2 = 4
+    var traplife3 = 4
+    var traplife4 = 4
+    var traplife5 = 4
+    var trap1a = false
+    var trap2a = false
+    var trap3a = false
+    var trap4a = false
+    var deflife = 15000
+    var deflife2 = 15000
+    var randActive400 = false
+    var randActive800 = false
+    var randActive1200 = false
+    var randActive1600 = false
+    var score30 = 30
+    var randX
+    var selitem
+    var item1
+    var item2
+    var item3
+    var item1a = false
+    var item2a = false
+    var item3a = false
+    var tactive = false
+    var tactive2 = false
+    var createWorld = false
+		function preload(){	
+			game.load.image('sky', 'sky.jpg')
+			game.load.image('ground', 'ground.png')
+			game.load.image('tree', 'tree.png')
+			game.load.image('tower', 'house.png')
+			game.load.image('button', 'right.png')
+			game.load.image('man', 'man.png')
+			game.load.image('defka', 'ooo.png')
+			game.load.image('manl', 'manleft.png')
+			game.load.image('buttonleft', 'left.png')
+            game.load.image('buttonup', 'up.png')
+			game.load.image('bullet', 'bullet.png')
+			game.load.image('z', 'zombie.png')
+            game.load.image('bigz', 'big-zombie.png')
+			game.load.image('groundflip', 'groundflip.png')
+			game.load.image('target', 'target.png')
+            game.load.image('life', 'life.png')
+            game.load.image('ammo', 'ammo.jpg')
+            game.load.image('money', 'money.jpg')
+            game.load.image('trap', 'trap.png')
+            game.load.image('heatbox', 'heatbox.png')
+            game.load.image('menu1', 'menu1.png')
+            game.load.audio('firemp', 'fire.mp3')
+            game.load.image('buttonTrap', 'trapButton.png')
+            game.load.image('item1', 'heartItem.png')
+            game.load.image('item2', 'ammoItem.png')
+            game.load.image('item3', 'moneyItem.png')
+            game.load.image('playbtn', 'play.png')
+
+		}
+		function create(){
+			game.physics.startSystem(Phaser.Physics.ARCADE);
+			game.world.setBounds(0, 0, 2000, 600);
+            
+            game.camera.x = game.world.centerX
+
+			var sk = game.add.sprite(0, 0, 'sky')
+			sk.scale.setTo(4, 2)
+
+			var gr = game.add.sprite(700, 500, 'ground');
+			gr.scale.setTo(0.8, 0.5)
+
+			var gr2 = game.add.sprite(0, 500, 'groundflip');
+			gr2.scale.setTo(0.8, 0.5)
+
+			var gr3 = game.add.sprite(1400, 500, 'groundflip');
+			gr3.scale.setTo(0.8, 0.5)
+
+			var tow = game.add.sprite(game.world.centerX - 200, 310, 'tower')
+			tow.scale.setTo(0.5,0.5)
+
+            def = game.add.sprite(700, -200, 'defka');
+			def2 = game.add.sprite(700, -200, 'defka');
+
+            peps = game.add.group()
+            peps.enableBody = true
+
+            peps2 = game.add.group()
+            peps2.enableBody = true
+
+            pips = game.add.group()
+            pips.enablebody = true
+
+			pl = game.add.sprite(game.world.centerX, 485, 'man')
+			//pl.fixedToCamera = true
+			pl.anchor.x = 0.5
+			pl.scale.setTo(0.2,0.2)
+            pl.anchor.y = 0.5
+			game.physics.arcade.enable(pl)
+            game.camera.follow(pl)
+
+            var dollars = game.add.sprite(9, 23, 'money')
+            dollars.scale.setTo(0.23)
+            dollars.fixedToCamera = true;
+
+            var ammor = game.add.sprite(15, 135, 'ammo')
+            ammor.scale.setTo(0.3)
+            ammor.fixedToCamera = true;
+
+            var heart = game.add.sprite(5,65, 'life')
+            heart.scale.setTo(0.2)
+            heart.fixedToCamera = true;
+
+            menu1 = game.add.sprite(400, 0, 'menu1')
+            menu1.fixedToCamera = true
+
+            var buyAmmo = game.add.sprite(420, 20, 'heatbox')
+            buyAmmo.fixedToCamera = true
+            buyAmmo.scale.setTo(0.49, 0.7)
+            buyAmmo.inputEnabled = true
+            buyAmmo.events.onInputDown.add(addAmmo)
+
+            var buyDef = game.add.sprite(545, 20, 'heatbox')
+            buyDef.fixedToCamera = true
+            buyDef.scale.setTo(0.49, 0.7)
+            buyDef.inputEnabled = true
+            buyDef.events.onInputDown.add(addDef)
+
+            var buytrap = game.add.sprite(670, 20, 'heatbox')
+            buytrap.fixedToCamera = true
+            buytrap.scale.setTo(0.49, 0.7)
+            buytrap.inputEnabled = true
+            buytrap.events.onInputDown.add(addTrap)
+
+            bigZombies = game.add.group()
+            bigZombies.enableBody = true
+            
+
+			zombies = game.add.group()
+			zombies.enableBody = true
+			
+
+            //item1s = game.add.group()
+            //item1s.enableBody = true
+
+			
+
+			fire = game.add.sprite(600, 505, 'target')
+			fire.fixedToCamera = true;
+			fire.scale.setTo(0.16,0.16)
+			fire.inputEnabled = true
+			fire.events.onInputDown.add(shoot)
+
+   			 //  Sprite 1 will use the World (global) gravity
+            
+    		item1s = game.add.group()
+            item1s.enableBody = true
+
+            item2s = game.add.group()
+            item2s.enableBody = true
+            
+            item3s = game.add.group()
+            item3s.enableBody = true
+
+    		game.physics.arcade.enable(def);
+
+    		def.scale.setTo(0.2)
+    		def.bulletAngleOffset = 90
+            def.anchor.x = 0.5
+            def.anchor.y = 0.5
+    		
+
+    		//  Also enable sprite for drag
+
+
+            game.physics.arcade.enable(def2);
+
+            def2.scale.setTo(0.2)
+            def2.bulletAngleOffset = 90
+            def2.anchor.x = 0.5
+            def2.anchor.y = 0.5
+            
+
+            //  Also enable sprite for drag
+
+
+    		weapon = game.add.weapon(20, 'bullet');
+    		weapon.bulletAngleOffset = 90;
+			weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+			weapon.bulletSpeed = 400;
+			weapon.trackSprite(pl, 0, 0);
+			weapon.enableBody = true
+			weapon.bullets.setAll('scale.x', 0.5);
+			weapon.bullets.setAll('scale.y', 0.5);
+
+			moneyText = game.add.text(80, 20, '0', { font: '32px Lato', fill: '#FFFAF0' });
+			lifeText = game.add.text(80, 80, '100', { font: '32px Lato', fill: '#FFFAF0' });
+			lifeText.fixedToCamera = true;
+			moneyText.fixedToCamera = true;
+			ammoText = game.add.text(80, 140, '20', { font: '32px Lato', fill: '#FFFAF0' });
+			ammoText.fixedToCamera = true;
+			scoreText = game.add.text(15, 200, 'Score: 0', { font: '32px Lato', fill: '#FFFAF0' });
+			scoreText.fixedToCamera = true;
+
+            buttonR = game.add.sprite(125, 505, 'button')
+            buttonR.fixedToCamera = true;
+            buttonR.scale.setTo(0.13,0.13)
+            buttonR.inputEnabled = true
+            buttonR.events.onInputDown.add(right)
+            buttonR.events.onInputUp.add(rightStop)
+
+            buttonL = game.add.sprite(0, 505, 'buttonleft')
+            buttonL.fixedToCamera = true;
+            buttonL.scale.setTo(0.13,0.13)
+            buttonL.inputEnabled = true
+            buttonL.events.onInputDown.add(left)
+            buttonL.events.onInputUp.add(leftStop)
+
+            buttonJ = game.add.sprite(63, 425, 'buttonup')
+            buttonJ.fixedToCamera = true;
+            buttonJ.scale.setTo(0.13,0.13)
+            buttonJ.inputEnabled = true
+            buttonJ.events.onInputDown.add(left)
+            buttonJ.events.onInputUp.add(leftStop)
+
+
+            playbtn = game.add.sprite(338, 250, 'playbtn')
+            game.physics.arcade.enable(playbtn);
+            playbtn.fixedToCamera = true;
+            playbtn.scale.setTo(0.2)
+            playbtn.inputEnabled = true
+            playbtn.events.onInputDown.add(startZ)
+			}
+
+        	
+        
+			function update(){
+				game.physics.arcade.overlap(zombies,weapon.bullets,killZombie,null,this)
+                game.physics.arcade.overlap(pl,zombies,killHero,null,this)
+                game.physics.arcade.overlap(pl,item1s,Take1,null,this)
+                game.physics.arcade.overlap(pl,item2s,Take2,null,this)
+				game.physics.arcade.overlap(pl,item3s,Take3,null,this)
+				game.physics.arcade.overlap(def,zombies,stopZombie,null,this)
+                game.physics.arcade.overlap(peps,zombies,goZombie,null,this)
+                game.physics.arcade.overlap(peps2,zombies,goZombie2,null,this)
+				//game.physics.arcade.overlap(pips,trap,piptrap,null,this)
+				game.physics.arcade.overlap(def2,zombies,stopZombie2,null,this)
+				game.physics.arcade.overlap(bigZombies,weapon.bullets,killBigZombie,null,this)
+				game.physics.arcade.overlap(pl,bigZombies,bigKillHero,null,this)
+				game.physics.arcade.overlap(def,bigZombies,stopZombie,null,this)
+				game.physics.arcade.overlap(def2,bigZombies,stopZombie2,null,this)
+                game.physics.arcade.overlap(trap1,zombies,trapZ,null,this)
+                game.physics.arcade.overlap(trap2,zombies,trapZ2,null,this)
+                game.physics.arcade.overlap(trap3,zombies,trapZ3,null,this)
+                game.physics.arcade.overlap(trap4,zombies,trapZ4,null,this)
+				if(life > 0){
+					if(livebull == true){
+						if(lefty == true){
+							weapon.fire(pl, -5000, 425)
+	                        firemp3.play()
+							livebull = false
+						}
+						if(righty == true){
+							weapon.fire(pl, 5000, 425)
+	                        firemp3.play()
+							livebull = false
+						}
+					}
+	            }
+                if(tactive == true){
+                        pep = peps.create(def.position.x - 120, def.position.y - 50, 'heatbox')
+                        pep.scale.setTo(0.4)
+                        pep2 = peps2.create(def.position.x + 20, def.position.y - 50, 'heatbox')
+                        pep2.scale.setTo(0.4)
+                        def.position.y = -200
+                        defch = false
+                        tef = 15
+                        tsz = false
+                        tactive = false
+                    }
+                    if(tactive2 == true){
+                        pep = peps.create(def2.position.x - 120, def2.position.y - 50, 'heatbox')
+                        pep.scale.setTo(0.4)
+                        pep2 = peps2.create(def2.position.x + 20, def2.position.y - 50, 'heatbox')
+                        pep2.scale.setTo(0.4)
+                        def2.position.y = -200
+                        defch2 = false
+                        tef2 = 15
+                        tsz2 = false
+                        tactive2 = false
+                    }
+			}
+			function shoot(){
+                firemp3 = game.add.audio('firemp')
+
+				if(ammo > 0){
+                    livebull = true
+                    ammo -= 1;
+					ammo2 -= 1;
+					ammoText.text = ammo2;
+				}
+			}
+			function fireStop(){
+				livebull = false
+			}
+            function Take1(arg1, arg2){
+                arg2.kill()
+                if(life == 100){
+
+                }
+                else{
+                    life += 10;
+                    lifeText.text = life;
+                }
+            }
+            function Take2(arg1, arg2){
+                    ammo += 10;
+                    ammo2 += 10;
+                    ammoText.text = ammo2;
+                    arg2.kill()
+                }
+            function Take3(arg1, arg2){
+                    money += 50;
+                    moneyText.text = money;
+                    arg2.kill()
+                }
+			function right(){
+				pl.scale.setTo(0.2,0.2)
+				rightTrue = true
+				pl.body.velocity.x = 100
+				righty = true
+				lefty = false
+                stoped = false
+			}
+			function left(){
+				pl.scale.setTo(-0.2,0.2)
+				leftTrue = true
+				pl.body.velocity.x = -100
+				righty = false
+				lefty = true
+
+                /*if(game.camera.x == 0){
+                    pl.fixedToCamera = false
+                    blockcam = true
+                    stoped = true
+                }*/
+			}
+			function rightStop(){
+				rightTrue = false
+				pl.body.velocity.x = 0
+			}
+			function leftStop(){
+				leftTrue = false
+				pl.body.velocity.x = 0
+			}
+			function killZombie(arg1,arg2){
+				arg1.kill()
+                arg2.kill()
+                money += 10;
+                moneyText.text = money;
+				score1()
+			}
+            function killBigZombie(arg1,arg2){
+                arg1.kill()
+                arg2.kill()
+                money += 15;
+                moneyText.text = money;
+                score1()
+            }
+            function score1(){
+                score += 1;
+                scoreText.text = 'Score: ' + score;
+                if(score >= score30){
+                    score30 += 30
+                    for (i = 0; i < 4; i++) {
+                        spawnItem()
+                    }
+                    game.time.events.add(Phaser.Timer.SECOND * 10, delitem, this);
+                }
+            }
+            function delitem(){
+                if(item1a == true){
+                    item1s.forEach(function (c) { c.kill(); });
+                    item1a = false
+                }
+                if(item2a == true){
+                    item2s.forEach(function (c) { c.kill(); });
+                    item2a = false
+                }
+                if(item3a == true){
+                    item3s.forEach(function (c) { c.kill(); });
+                    item3a = false
+                }
+                i = 0
+                randActive400 = false
+                randActive800 = false
+                randActive1200 = false
+                randActive1600 = false
+            }
+            function spawnItem(){
+                selitem = game.rnd.integerInRange(1, 3)
+                if(randActive400 == false){
+                    randX = 400
+                    randActive400 = true
+                }
+                else if(randActive800 == false){
+                    randX = 800
+                    randActive800 = true
+                }
+                else if(randActive1200 == false){
+                    randX = 1200
+                    randActive1200 = true
+                }
+                else if(randActive1600 == false){
+                    randX = 1600
+                    randActive1600 = true
+                }
+                if(selitem == 1){
+                    item1 = item1s.create(randX, 475, 'item1')
+                    item1.scale.setTo(0.25)
+                    item1a = true
+                    game.physics.arcade.enable(item1)
+                }
+                else if(selitem == 2){
+                    item2 = item2s.create(randX, 475, 'item2')
+                    item2.scale.setTo(0.25)
+                    item2a = true
+                    game.physics.arcade.enable(item2)
+                }
+                else if(selitem == 3){
+                    item3 = item3s.create(randX, 475, 'item3')
+                    item3.scale.setTo(0.25)
+                    item3a = true
+                    game.physics.arcade.enable(item3)
+                }
+                
+            }
+            function startZ(){
+                playbtn.kill()
+                setInterval(createBigZombie, Math.round(Math.random()*4000)+20000)
+                setInterval(createBigZombie2, Math.round(Math.random()*4000)+20000)
+                setInterval(createZombie, Math.round(Math.random()*4000)+1000)
+                setInterval(createZombie2, Math.round(Math.random()*4000)+1000)
+                life = 100
+            }
+            function trapZ(arg1, arg2){
+                arg2.kill()
+                traplife -= 1
+                score1()
+                money += 5;
+                moneyText.text = money;
+                if(traplife <= 0){
+                    arg1.kill()
+                    traplife = 4
+                    trap1a = false
+                }
+            }
+            function trapZ2(arg1, arg2){
+                arg2.kill()
+                traplife2 -= 1
+                score1()
+                money += 5;
+                moneyText.text = money;
+                if(traplife2 <= 0){
+                    arg1.kill()
+                    traplife2 = 4
+                    trap2a = false
+                }
+            }
+            function trapZ3(arg1, arg2){
+                arg2.kill()
+                traplife3 -= 1
+                score1()
+                money += 5;
+                moneyText.text = money;
+                if(traplife3 <= 0){
+                    arg1.kill()
+                    traplife3 = 4
+                    trap3a = false
+                }
+            }
+            function trapZ4(arg1, arg2){
+                arg2.kill()
+                traplife4 -= 1
+                score1()
+                money += 5;
+                moneyText.text = money;
+                if(traplife4 <= 0){
+                    arg1.kill()
+                    traplife4 = 4
+                    trap4a = false
+                }
+            }
+            
+			function killHero(arg1, arg2){
+				arg2.kill()
+				life -= 30;
+				lifeText.text = life
+				if(life <= 0){
+					arg1.kill()
+                    life = 0
+                    lifeText.text = life;
+                    endGame()
+				}
+				
+			}
+            function bigKillHero(arg1, arg2){
+                arg2.kill()
+                life -= 50;
+                lifeText.text = life
+                if(life <= 0){
+                    arg1.kill()
+                    life = 0
+                    lifeText.text = life;
+                    endGame()
+                }
+            }
+			function createZombie(){
+				zombie = zombies.create(0,485,'z');
+				zombie.scale.setTo(0.22);
+				zombie.body.velocity.x = 40;
+                zombie.anchor.x = 0.5
+                zombie.anchor.y = 0.5
+			}
+			function createZombie2(){
+				zombie = zombies.create(2000,485,'z');
+				zombie.scale.setTo(-0.22, 0.22);
+				zombie.body.velocity.x = -40;
+				zombie.anchor.x = 0.5
+                zombie.anchor.y = 0.5
+			}
+            function createBigZombie(){
+                zombie = bigZombies.create(0,495,'bigz');
+                zombie.scale.setTo(0.38,0.4);
+                zombie.body.velocity.x = 20;
+                zombie.anchor.x = 0.5
+                zombie.anchor.y = 0.8
+            }
+            function createBigZombie2(){
+                zombie = bigZombies.create(2000,495,'bigz');
+                zombie.scale.setTo(-0.38, 0.4);
+                zombie.body.velocity.x = -20;
+                zombie.anchor.x = 0.5
+                zombie.anchor.y = 0.8
+                
+            }
+            function stopZombie(arg1, arg2){
+                    arg2.body.velocity.x = 0.1
+                    if(tsz == false){
+                        //  Create our Timer
+                        game.time.events.add(Phaser.Timer.SECOND * 15, activate, this);
+                        tsz = true
+                        
+                    }
+            }
+            function stopZombie2(arg1, arg2){
+                arg2.body.velocity.x = 0.1
+                if(tsz2 == false){
+                    //  Create our Timer
+                    game.time.events.add(Phaser.Timer.SECOND * 15, activate2, this);
+                    tsz2 = true
+                    
+                }
+            }
+            function activate(){
+                tactive = true
+            }
+            function activate2(){
+                tactive2 = true
+            }
+            function goZombie(arg1, arg2){
+                arg2.body.velocity.x = 40
+                pep.kill()
+                pep2.kill()
+            }
+            function goZombie2(arg1, arg2){
+                arg2.body.velocity.x = -40
+                pep.kill()
+                pep2.kill()
+            }
+            function trapBigZombie(arg1, arg2){
+                arg2.body.velocity.x /= 2
+            }
+            function addAmmo(){
+                if(money >= 25){
+                    money -= 25
+                    moneyText.text = money;
+                    ammo += 5
+                    ammo2 += 5
+                    ammoText.text = ammo2;
+                }
+            }
+            function addDef(){
+                if(defch == false && money >= 150){
+                    money -= 150
+                    moneyText.text = money;
+                    def.position.x = pl.position.x
+                    def.position.y = pl.position.y
+                    defch = true
+                }
+                else if(defch2 == false && money >= 150){
+                    money -= 150
+                    moneyText.text = money;
+                    def2.position.x = pl.position.x
+                    def2.position.y = pl.position.y
+                    defch2 = true
+                }
+            }
+            function addTrap(){
+                if(trap1a == false && money >= 50){
+                    trap1 = game.add.sprite(pl.position.x - 101.2, pl.position.y + 10, 'trap')
+                    game.physics.arcade.enable(trap1);
+                    trap1.scale.setTo(0.4)
+                    trap1.bulletAngleOffset = 90
+                    trap1a = true
+                    money -= 50
+                    moneyText.text = money;
+                }
+                else if(trap2a == false && money >= 50){
+                    trap2 = game.add.sprite(pl.position.x - 101.2, pl.position.y + 10, 'trap')
+                    game.physics.arcade.enable(trap2);
+                    trap2.scale.setTo(0.4)
+                    trap2.bulletAngleOffset = 90
+                    trap2a = true
+                    money -= 50
+                    moneyText.text = money;
+                }
+                else if(trap3a == false && money >= 50){
+                    trap3 = game.add.sprite(pl.position.x - 101.2, pl.position.y + 10, 'trap')
+                    game.physics.arcade.enable(trap3);
+                    trap3.scale.setTo(0.4)
+                    trap3.bulletAngleOffset = 90
+                    trap3a = true
+                    money -= 50
+                    moneyText.text = money;
+                }
+                else if(trap4a == false && money >= 50){
+                    trap4 = game.add.sprite(pl.position.x - 101.2, pl.position.y + 10, 'trap')
+                    game.physics.arcade.enable(trap4);
+                    trap4.scale.setTo(0.4)
+                    trap4.bulletAngleOffset = 90
+                    trap4a = true
+                    money -= 50
+                    moneyText.text = money;
+                }
+            }
+            function cheat(){
+            	money = 99999999
+            	life = 99999999
+            	ammo = 99999999
+            	ammo2 = 99999999
+            	score = 99999999
+            	moneyText.text = money;
+            	lifeText.text = life
+            	ammoText.text = ammo2;
+            	scoreText.text = 'Score: ' + score;
+            	var cheater = game.add.text(15, 260, 'CHEATER', { font: '32px Lato', fill: '#FF0000' });
+            	cheater.fixedToCamera = true
+            }
+            function restart(){
+                item1s.forEach(function (c) { c.kill(); });
+                item2s.forEach(function (c) { c.kill(); });
+                item3s.forEach(function (c) { c.kill(); });
+                zombies.forEach(function (c) { c.kill(); });
+                bigZombies.forEach(function (c) { c.kill(); });
+                def.position.y = -200
+                def2.position.y = -200
+                money = 0
+                moneyText.text = money
+                life = 100
+                lifeText.text = life
+                ammo = 20
+                ammo2 = 20
+                ammoText.text = ammo2
+                score = 0
+                scoreText.text = 'Score: ' + score
+                pl = game.add.sprite(game.world.centerX, 485, 'man')
+                game.camera.target = pl
+                pl.anchor.x = 0.5
+                pl.scale.setTo(0.2,0.2)
+                pl.anchor.y = 0.5
+                game.physics.arcade.enable(pl)
+                game.camera.follow(pl)
+                gameover.kill()
+                scorend.kill()
+                resbtn.kill()
+                menu1.alpha = 1
+                buttonL.alpha = 1
+                buttonR.alpha = 1
+                fire.alpha = 1
+                scoreText.alpha = 1
+            }
+            function endGame(){
+                game.camera.target = null 
+                game.camera.x = 600
+                menu1.alpha = 0
+                buttonL.alpha = 0
+                buttonR.alpha = 0
+                fire.alpha = 0
+                scoreText.alpha = 0
+                gameover = game.add.text(400, 50, 'GAME OVER', { font: '32px Lato', fill: '#FF0000' });
+                gameover.fixedToCamera = true
+                scorend = game.add.text(400, 150, 'SCORE: ' + score, { font: '32px Lato', fill: '#FFFAF0' });
+                scorend.fixedToCamera = true
+                resbtn = game.add.sprite(338, 250, 'playbtn')
+                game.physics.arcade.enable(resbtn);
+                resbtn.fixedToCamera = true;
+                resbtn.scale.setTo(0.2)
+                resbtn.inputEnabled = true
+                resbtn.events.onInputDown.add(restart)
+            }
+        }
+	</script>
+</body>
+</html>
